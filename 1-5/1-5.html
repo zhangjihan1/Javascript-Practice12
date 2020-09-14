@@ -1,0 +1,65 @@
+<!--
+    1-5: Create a die (dice) object so that on each of its six faces is a different image, 
+    with the same size. The die object should have a method called randomRoll which causes one 
+    of the faces of the die to be selected randomly. Then whenever you click a button on the screen, 
+    the function of randomRoll is called and hence one of the images on the die randomly appears on 
+    the screen.
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Task 1-5 </title>
+    <style>
+        img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 300px;
+            height: 300px;
+        }
+
+        #rollBtn {
+            position: absolute;
+            top: 320px;
+            width: 150px;
+            height: 60px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            // (1）给按键绑定点击事件
+            let rollBtn = document.getElementById("rollBtn");
+            rollBtn.addEventListener("click", randomRoll);
+
+            // (2) 定义用来随机显示骰子的函数
+            let zindex = 1;
+            function randomRoll() {
+                let imgArr = document.getElementsByTagName("img");
+                let rollIndex = Math.floor(Math.random() * 6);
+                imgArr[rollIndex].style.zIndex = zindex;
+                zindex++;
+            }
+        };
+
+    </script>
+</head>
+
+<body>
+    <div id="diceImg">
+        <img src="1.png" />
+        <img src="2.png" />
+        <img src="3.png" />
+        <img src="4.png" />
+        <img src="5.png" />
+    </div>
+    <div>
+        <button id="rollBtn" type="button"> Roll Dice </button>
+    </div>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,90 @@
+<!--
+   1-9)	Use animation capability of jQuery and create a web page with a car image and 
+   two buttons on it. The first button (called start) causes the car to move back and 
+   forth in the screen continually and the second button (called stop) causes the car 
+   to stop. After completing that web page, in a separate webpage, create two boxes 
+   which move up and down with different speed. The same with the car image, both boxes 
+   should stop and start to move with “stop” and “start” buttons.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> task 1-9(1) </title>
+    <style>
+        button {
+            margin: 10px;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
+
+        #box1Img {
+            position: absolute;
+            left:0px;
+            
+        }
+
+        #box2Img {
+            position: absolute;
+            left:150px;
+        }
+
+        #buttonControl {
+            position: absolute;
+            left: 400px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            //(1) 给 start 按键绑定点击事件 
+            
+            $("#startBtn").click(function () {
+                box1Animate();
+                box2Animate();
+            });
+
+            //(2) 定义动画函数
+            //* jQuery animate() 参考：https://www.w3schools.com/jquery/jquery_animate.asp
+            function box1Animate() {
+                $("#box1Img").animate({ top: "500px" }, 1000);
+                $("#box1Img").animate({ top: "0px" }, 1000, box1Animate);
+            }
+
+            function box2Animate() {
+                $("#box2Img").animate({ top: "500px" }, 2000);
+                $("#box2Img").animate({ top: "0px" }, 2000, box2Animate);
+            }
+
+
+            //(3) 给 stop 按键绑定点击事件
+            //* jQuery stop()  参考：https://www.w3schools.com/jquery/jquery_stop.asp
+            $("#stopBtn").click(function () {
+                $("img").stop(true);
+            });
+            
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <div>
+        <img id="box1Img" src="box1.png">
+        <img id="box2Img" src="box2.png">
+    </div>
+
+    <div id="buttonControl">
+        <button id="startBtn">Start</button>
+        <button id="stopBtn">Stop</button>
+    </div>
+
+
+</body>
+
+</html>

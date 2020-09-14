@@ -1,0 +1,45 @@
+<!--
+    1-7)	By using the concept of prototype, add a capability to the current String class 
+    so that a method called CountDoubles can count the number of times a charter is repeated 
+    in the string instantly, and then test your function on different strings to make sure your 
+    function works correctly.  For instance, if you test your functions on “Well” and “apple” it 
+    should produce 1, because in the first word, l, and in the second word, p has been instantly 
+    repeated 1 time. On the other hand, if you apply it on “Tara” it should produce 0 because none 
+    of the characters have been instantly repeated. Finally, if you test it on “Pssstuup” the result 
+    should be 3 because “s” has been instantly repeated twice and “u” has been instantly repeated 
+    once, 2+1=3. 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> task 1-7 </title>
+    <script>
+        //（1）定义 CountDoubles 函数
+        function CountDoubles() {
+            let str = this;
+            let count = 0;
+            if (str.length <= 1) return 0;
+
+            for (let i = 1; i < str.length; i++) {
+                if (str[i] == str[i - 1]) count++;
+            }
+
+            return count;
+        }
+
+        //(2) 给字符串原型添加上 CountDoubles 函数
+        //* 更改原生原型 prototype : https://zh.javascript.info/native-prototypes#native-prototype-change
+        String.prototype.CountDoubles = CountDoubles;
+        let test = "“Pssssuup”";
+        console.log(test.CountDoubles());
+    </script>
+
+</head>
+
+<body>
+
+  
+</body>
+
+</html>

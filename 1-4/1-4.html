@@ -1,0 +1,62 @@
+<!--
+    1-4: In your previous lecture notes, you learnt about the functionality of zindex. By the uses of that functionality, 
+    write a JavaScript code that whenever you click on one of the pictures in a stack, 
+    the corresponding picture can completely be seen.
+--> 
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> task 1-4 </title>
+    <style>
+        img {
+            width: 600px;
+            height: 400px;
+        }
+    </style>
+    <script>
+        // (1）设定windows onload 事件
+        // * window.onload 参考：https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload
+        window.onload = function() {
+            //（2）选中页面中的所有图片
+            let imgArr = document.getElementsByTagName("img");
+
+            //（3）给图片设置位置和z-index 以及绑定点击事件
+            // * dom 属性设置页面：https://www.w3schools.com/jsref/dom_obj_style.asp
+            let topPos = 0, leftPos = 0, index = 0;
+            for (let img of imgArr) {
+                img.style.zIndex = index;
+                img.style.position = "absolute";
+                img.style.top = topPos + "px";
+                img.style.left = leftPos + "px";
+                topPos += 30;
+                leftPos += 30;
+                index++;
+                img.addEventListener("click", changeZindex);
+            }
+
+            // (4) 定义函数用来改变图片的zindex
+            // event target 参考：https://www.w3schools.com/JSREF/event_target.asp
+            function changeZindex(event) {
+                index++;
+                event.target.style.zIndex = index;
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div id="imageStack">
+        <img src="1.png" />
+        <img src="2.png" />
+        <img src="3.png" />
+        <img src="4.png" />
+        <img src="5.png" />
+    </div>
+
+</body>
+
+</html>

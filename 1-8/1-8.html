@@ -1,0 +1,43 @@
+<!--
+   1-8)	Write a piece of code in JavaScript that wherever the user clicks on screen,
+    the program writes for them "Do not click here." with red colour. 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> task 1-8 </title>
+    <style>
+        #htmlBody {
+            width: 100%;
+            height: 2000px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //给整个 HTML 页面绑定点击事件
+            let body = document.getElementById("htmlBody");
+
+            body.addEventListener("click", writeTextHandler);
+
+            //定义给页面添加红色字体的函数
+            function writeTextHandler (event) {
+                let pEle = document.createElement("p");
+                pEle.innerText = "Do not click here";
+                pEle.style.color = "red";
+                pEle.style.position = "absolute";
+                pEle.style.top = event.clientY+ "px";
+                pEle.style.left = event.clientX + "px";
+                pEle.style.margin = "0px";
+                body.append(pEle);
+            }
+
+        }
+    </script>
+</head>
+
+<body id="htmlBody">
+  
+</body>
+
+</html>

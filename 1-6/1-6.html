@@ -1,0 +1,128 @@
+<!--
+    1-6) Create any web page with a table and two buttons on it. By the use of jQuery, 
+    The first button should change the colours of even rows from green to red and vice 
+    versa, whereas the second button changes the CSS style of odd rows from one style to 
+    another and vice versa. The two styles you select are optional. 
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> task 1-6 </title>
+    <style>
+        #studentTable {
+            border: 1px solid black;
+        }
+
+        #studentTable td,
+        th {
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        button {
+            margin: 10px;
+        }
+
+        .redColor {
+            color: red;
+        }
+
+        .oddStyle {
+            font-size: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: blue;
+        }
+
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let studentArr = [];
+            //（1）用上周作业定义的的3个函数生成表格
+            //function used to random generate student objects based on input length
+            function generateStudent(length) {
+                let degreeArr = ["Bachelor", "Master", "PhD"];
+                let nationArr = ["China", "Australia", "American", "Japan", "Chi", "Austria", "Chile"];
+                let nameArr = ["Tony", "Mike", "Lily", "Lucy", "James", "Bob", "Lee", "Hunery", "Moke"]
+
+                for (i = 0; i < length; i++) {
+                    let studentObj = {};
+                    studentObj.ID = randomProperty(5);
+                    studentObj.name = nameArr[Math.floor(Math.random() * 8)];
+                    studentObj.degree = degreeArr[Math.floor(Math.random() * 3)];
+                    studentObj.GPA = (Math.random() * 5).toFixed(2);
+                    studentObj.nation = nationArr[Math.floor(Math.random() * 7)];
+
+                    studentArr.push(studentObj);
+                }
+                return studentArr;
+            }
+
+            //random generate characters based on input length
+            function randomProperty(length) {
+                let ranPro = '';
+                let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                for (let i = 0; i < length; i++) {
+                    ranPro += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return ranPro;
+            }
+
+
+            //function used to generate student table
+            function generateTable(objArr) {
+                let table = $("#studentTable");
+                table.empty();
+                let trthElement = $("<th>Student ID</th> <th>Name</th> <th>Degree</th> <th>GPA</th> <th>Nationality</th>");
+                table.append(trthElement);
+
+                for (let obj of objArr) {
+                    let trElement = $("<tr></tr>");
+                    for (let key in obj) {
+                        let tdElement = $("<td></td>").text(obj[key]);
+                        trElement.append(tdElement);
+                    }
+                    table.append(trElement);
+                }
+            }
+
+            // (2) 调用函数生产表格
+            generateStudent(20);
+            generateTable(studentArr);
+
+            // (3) 给2个按键绑定事件
+            let evenRowBtn = document.getElementById("evenRowBtn");
+            let oddRowBtn = document.getElementById("oddRowBtn");
+            evenRowBtn.addEventListener("click", evenRowHandler);
+            oddRowBtn.addEventListener("click", oddRowHandler);
+
+            // (4) 定义 eventRowHandler 函数来改变表格偶数行颜色
+            // * jQuery toggleClass() 参考：https://www.w3schools.com/jquery/jquery_css_classes.asp
+            // * CSS :nth-child() 参考：https://www.w3schools.com/cssref/sel_nth-child.asp
+            function evenRowHandler() {
+                $("#studentTable tr:nth-child(even)").toggleClass("redColor");
+            }
+
+            // (5) 定义 oddRowHandler 函数改变表格基数行style
+            function oddRowHandler() {
+                $("#studentTable tr:nth-child(odd)").toggleClass("oddStyle");
+            }
+
+        });
+    </script>
+
+
+
+</head>
+
+<body>
+
+    <table id="studentTable">
+    </table>
+    <button id="evenRowBtn"> Change Even Row Colour</button>
+    <button id="oddRowBtn"> Change Odd Row Style</button>
+</body>
+
+</html>
